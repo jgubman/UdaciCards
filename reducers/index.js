@@ -9,12 +9,11 @@ function decks (state = {}, action) {
         ...action.decks,
       }
     case ADD_QUESTION :
+      state[action.key].questions.push(action.question)
       return {
-        ...state,
-        ...action.question
+        ...state
       }
     case ADD_DECK :
-      debugger
       return {
         ...state,
         ...action.deck

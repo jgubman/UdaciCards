@@ -1,5 +1,5 @@
 export const RECEIVE_DECKS = 'RECEIVE_DECKS'
-export const ADD_ENTRY = 'ADD_QUESTION'
+export const ADD_QUESTION = 'ADD_QUESTION'
 export const ADD_DECK = 'ADD_DECK'
 export const ANSWER_QUESTION = 'ANSWER_QUESTION'
 export const QUIZ_START = 'QUIZ_START'
@@ -12,10 +12,10 @@ export function receiveDecks (decks) {
   }
 }
 
-export function addQuestion (question) {
+export function addQuestion (key, question) {
   return {
     type: ADD_QUESTION,
-    question,
+    question, key
   }
 }
 

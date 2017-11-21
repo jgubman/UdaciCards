@@ -16,7 +16,8 @@ class NewDeck extends Component {
             value={text}
             style={styles.input}
             onChangeText={(text) => this.setState({text})}
-            onSubmitEditing={this._handleTextChange} />
+            onSubmitEditing={this._handleTextChange}
+            placeholder='Deck Title' />
       </View>
     )
   }

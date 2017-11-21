@@ -6,6 +6,7 @@ import rootReducer from './reducers'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
 import Deck from './components/Deck'
+import NewCard from './components/NewCard'
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 import { purple, white } from './utils/colors'
@@ -51,6 +52,15 @@ const MainNavigator = StackNavigator({
   },
   Deck: {
     screen: Deck,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: purple,
+      }
+    }
+  },
+  NewCard: {
+    screen: NewCard,
     navigationOptions: {
       headerTintColor: white,
       headerStyle: {

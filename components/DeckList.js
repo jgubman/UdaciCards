@@ -46,7 +46,7 @@ class DeckList extends Component {
     return (
       <TouchableHighlight style={styles.item} onPress={() => {
         this.props.dispatch(resetQuiz())
-        navigate('Deck', {title: title, questions: questions})
+        navigate('Deck', {deck: item, title: title, questions: questions})
       } }>
         <Text>{title}: {questions.length} Cards</Text>
       </TouchableHighlight>
