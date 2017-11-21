@@ -6,6 +6,7 @@ import rootReducer from './reducers'
 import DeckList from './components/DeckList'
 import NewDeck from './components/NewDeck'
 import Deck from './components/Deck'
+import Quiz from './components/Quiz'
 import NewCard from './components/NewCard'
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
@@ -68,6 +69,12 @@ const MainNavigator = StackNavigator({
         backgroundColor: purple,
       }
     })
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      title: 'Quiz'
+    }
   }
 })
 
