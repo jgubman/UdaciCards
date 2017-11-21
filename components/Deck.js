@@ -10,12 +10,14 @@ class Deck extends Component {
 
   render() {
     const { navigate, state } = this.props.navigation
-    const { deck, title, questions } = state.params
-    const {  dispatch, started, currentQuestionIdx } = this.props
+    const { deckKey } = state.params
+    const { dispatch, started, currentQuestionIdx, decks } = this.props
 
-    if (currentQuestionIdx === null) {
+    if ((currentQuestionIdx === null) || (decks === null)) {
       return
     }
+
+    const { questions, title } = decks[deckKey]
 
     if (questions.length > 0 && currentQuestionIdx == questions.length) {
       return (
@@ -32,7 +34,7 @@ class Deck extends Component {
         <View>
           <Text>{title}</Text>
           <Text>{questions.length} Cards</Text>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', {deck: deck}) }>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', {deck: deckKey}) }>
             <Text>Add New Card</Text>
           </TouchableOpacity>
           {questions.length > 0 && (
@@ -59,7 +61,8 @@ function mapStateToProps (state, ownProps) {
     correct: state.answers.correct,
     incorrect: state.answers.incorrect,
     currentQuestionIdx: state.answers.currentQuestionIdx,
-    started: state.answers.quizStarted
+    started: state.answers.quizStarted,
+    decks: state.decks
   }
 }
 
