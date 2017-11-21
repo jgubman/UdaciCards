@@ -52,21 +52,22 @@ const MainNavigator = StackNavigator({
   },
   Deck: {
     screen: Deck,
-    navigationOptions: {
+    navigationOptions: ({navigation}) => ({
       headerTintColor: white,
       headerStyle: {
         backgroundColor: purple,
-      }
-    }
+      },
+      title: `${navigation.state.params.title}`
+    })
   },
   NewCard: {
     screen: NewCard,
-    navigationOptions: {
+    navigationOptions: ({navigation}) => ({
       headerTintColor: white,
       headerStyle: {
         backgroundColor: purple,
       }
-    }
+    })
   }
 })
 

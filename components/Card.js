@@ -9,7 +9,10 @@ export default class Card extends Component {
 
   handleShowAnswer() {
     this.setState({showAnswer: true})
-    console.log(this.state)
+  }
+
+  handleShowQuestion() {
+    this.setState({showAnswer: false})
   }
 
   render() {
@@ -19,7 +22,7 @@ export default class Card extends Component {
     return (
       <View>
         { showAnswer
-          ? <Answer answer={answer} />
+          ? <Answer handleShowQuestion={this.handleShowQuestion.bind(this)} answer={answer} />
           : <Question handleShowAnswer={this.handleShowAnswer.bind(this)} question={question} />
         }
         <AnswerButtons />
@@ -32,18 +35,21 @@ export default class Card extends Component {
 export function Question({ question, handleShowAnswer }) {
   return (
     <View>
-      <Text>Current Question: { question }</Text>
+      <Text>{ question }</Text>
       <TouchableHighlight onPress={handleShowAnswer}>
-        <Text>Show Answer</Text>
+        <Text>Answer</Text>
       </TouchableHighlight>
     </View>
   )
 }
 
-export function Answer({ answer }) {
+export function Answer({ answer, handleShowQuestion }) {
   return (
     <View>
-      <Text>Answer: { answer }</Text>
+      <Text>{ answer }</Text>
+      <TouchableHighlight onPress={handleShowQuestion}>
+        <Text>Question</Text>
+      </TouchableHighlight>
     </View>
   )
 }
