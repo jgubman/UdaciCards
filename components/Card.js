@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { View, Text, TouchableHighlight } from 'react-native';
+import AnswerButtons from './AnswerButtons'
 
 export default class Card extends Component {
   state = {
@@ -12,7 +13,6 @@ export default class Card extends Component {
   }
 
   render() {
-    console.log(this.props)
     const { question, answer } = this.props.question
     const { showAnswer } = this.state
 
@@ -22,6 +22,7 @@ export default class Card extends Component {
           ? <Answer answer={answer} />
           : <Question handleShowAnswer={this.handleShowAnswer.bind(this)} question={question} />
         }
+        <AnswerButtons />
       </View>
     )
   }

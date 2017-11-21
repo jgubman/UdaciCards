@@ -24,11 +24,13 @@ function decks (state = {}, action) {
   }
 }
 
-function answers (state = {correct: 0, incorrect: 0, currentQuestionIdx: 0, quizStarted: false}, action) {
+const initialAnswerState = {correct: 0, incorrect: 0, currentQuestionIdx: 0, quizStarted: false}
+
+function answers (state = initialAnswerState, action) {
   switch (action.type) {
     case ANSWER_QUESTION :
-      action.correct ? state[correct] += 1 : state[incorrect] += 1
-      state[currentQuestionIdx] += 1
+      action.correct ? state.correct += 1 : state.incorrect += 1
+      state.currentQuestionIdx += 1
       return {
         ...state
       }
@@ -38,7 +40,7 @@ function answers (state = {correct: 0, incorrect: 0, currentQuestionIdx: 0, quiz
       }
     default :
       return {
-        ...state, quizStarted: false
+        ...initialAnswerState
       }
   }
 }

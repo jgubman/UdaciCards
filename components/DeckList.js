@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { View, FlatList, Text, StyleSheet, Platform, TouchableOpacity, TouchableHighlight, TextInput } from 'react-native'
+import { View, FlatList, Text, StyleSheet, Platform, TouchableOpacity, TouchableHighlight, TextInput, BackHandler } from 'react-native'
 import { connect } from 'react-redux'
 import { getDecks } from '../utils/api'
-import { receiveDecks, addDeck } from '../actions'
+import { receiveDecks, addDeck, resetQuiz } from '../actions'
 import { AppLoading} from 'expo'
 
 class DeckList extends Component {
@@ -42,9 +42,12 @@ class DeckList extends Component {
 
   _renderItem = ({item}) => {
     const { title, questions } = this.props.decks[item];
-    const {navigate} = this.props.navigation;
+    const { navigate } = this.props.navigation;
     return (
-      <TouchableHighlight style={styles.item} onPress={() => navigate('Deck', {title: title, questions: questions})}>
+      <TouchableHighlight style={styles.item} onPress={() => {
+        this.props.dispatch(resetQuiz())
+        navigate('Deck', {title: title, questions: questions})
+      } }>
         <Text>{title}: {questions.length} Cards</Text>
       </TouchableHighlight>
     )

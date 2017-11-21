@@ -7,22 +7,24 @@ import { AppLoading} from 'expo'
 import Card from './Card'
 
 class Deck extends Component {
-  state = {
-    started: false
-  }
-
-  handleStartQuiz() {
-    this.props.dispatch(quizStart())
-  }
 
   render() {
     const { navigate, state } = this.props.navigation
     const { title, questions } = state.params
-    const { started, currentQuestionIdx, dispatch } = this.props
+    const {  dispatch, started, currentQuestionIdx } = this.props
 
-    console.log(this.props)
     if (currentQuestionIdx === null) {
       return
+    }
+
+    if (currentQuestionIdx == questions.length) {
+      return (
+        <View>
+          <Text>
+            Done! {this.props.correct} correct out of {this.props.correct + this.props.incorrect}
+          </Text>
+        </View>
+      )
     }
 
     if (!started) {
@@ -34,13 +36,14 @@ class Deck extends Component {
             <Text>Add New Card</Text>
           </TouchableOpacity>
           {questions.length > 0 && (
-            <TouchableOpacity onPress={this.handleStartQuiz.bind(this)}>
+            <TouchableOpacity onPress={() => dispatch(quizStart())}>
               <Text>Start Quiz</Text>
             </TouchableOpacity>
           )}
         </View>
       )
     }
+
     return (
       <View>
         <Text>{currentQuestionIdx + 1} / {questions.length}</Text>
@@ -52,12 +55,11 @@ class Deck extends Component {
 
 
 function mapStateToProps (answers, ownProps) {
-  console.log(answers)
   return {
-    correct: answers.correct,
-    incorrect: answers.incorrect,
-    currentQuestionIdx: answers.currentQuestionIdx,
-    started: answers.quizStarted
+    correct: answers.answers.correct,
+    incorrect: answers.answers.incorrect,
+    currentQuestionIdx: answers.answers.currentQuestionIdx,
+    started: answers.answers.quizStarted
   }
 }
 

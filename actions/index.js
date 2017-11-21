@@ -29,12 +29,18 @@ export function addDeck (deck) {
 export function answerQuestion (correct) {
   return {
     type: ANSWER_QUESTION,
-    correct,
+    correct: correct,
   }
 }
 
 export function quizStart () {
   return {
     type: QUIZ_START
+  }
+}
+
+export function resetQuiz () {
+  return {
+    type: 'NOOP'
   }
 }

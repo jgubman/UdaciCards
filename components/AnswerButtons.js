@@ -10,7 +10,7 @@ class AnswerButtons extends Component {
 
     return (
       <View>
-        <TouchableHighlight onPress={dispatch(answerQuestion(true))}>
+        <TouchableHighlight onPress={() => dispatch(answerQuestion(true))}>
           <Text>Correct</Text>
         </TouchableHighlight>
         <TouchableHighlight>
