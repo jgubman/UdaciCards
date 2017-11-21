@@ -5,6 +5,7 @@ import { fetchDecks } from '../utils/api'
 import { receiveDecks, addDeck, quizStart } from '../actions'
 import { AppLoading} from 'expo'
 import Card from './Card'
+import { black, white, lightGrey } from '../utils/colors'
 
 class Deck extends Component {
 
@@ -20,15 +21,17 @@ class Deck extends Component {
     const { questions, title } = decks[deckKey]
 
     return (
-      <View>
-        <Text>{title}</Text>
-        <Text>{questions.length} Cards</Text>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate('NewCard', {deck: deckKey}) }>
-          <Text>Add New Card</Text>
+      <View style={styles.container}>
+        <View style={styles.titleView}>
+          <Text style={styles.heading}>{title}</Text>
+          <Text style={styles.subHead}>{questions.length} Cards</Text>
+        </View>
+        <TouchableOpacity style={[styles.button, styles.whiteBtn]} onPress={() => this.props.navigation.navigate('NewCard', {deck: deckKey}) }>
+          <Text style={[styles.buttonTxt, styles.whiteBtnTxt]}>Add Card</Text>
         </TouchableOpacity>
         {questions.length > 0 && (
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Quiz', {deck: deckKey}) }>
-            <Text>Start Quiz</Text>
+          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Quiz', {deck: deckKey}) }>
+            <Text style={styles.buttonTxt}>Start Quiz</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -37,6 +40,51 @@ class Deck extends Component {
   }
 }
 
+const styles = StyleSheet.create({
+  container: {
+   flex: 1,
+   paddingTop: 22,
+   justifyContent: 'center',
+   alignItems: 'center',
+   paddingLeft: 10,
+   paddingRight: 10
+  },
+  titleView: {
+    flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  heading: {
+    fontSize: 32,
+    textAlign: 'center'
+  },
+  subHead: {
+    fontSize: 22,
+    color: lightGrey,
+  },
+  button: {
+    width: 250,
+    padding: 5,
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: black,
+    backgroundColor: black,
+  },
+  buttonTxt: {
+    width: 240,
+    color: white,
+    fontSize: 32,
+    textAlign: 'center'
+  },
+  whiteBtn: {
+    backgroundColor: white
+  },
+  whiteBtnTxt: {
+    color: black
+  }
+})
 
 function mapStateToProps (state, ownProps) {
   return {
