@@ -38,6 +38,11 @@ class Quiz extends Component {
           }}>
             <Text style={styles.buttonTxt}>Restart Quiz</Text>
           </TouchableHighlight>
+          <TouchableHighlight style={styles.button} onPress={() => {
+            this.props.navigation.goBack()
+          }}>
+            <Text style={styles.buttonTxt}>Back to Deck</Text>
+          </TouchableHighlight>
         </View>
       )
     }

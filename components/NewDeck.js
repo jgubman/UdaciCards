@@ -48,6 +48,7 @@ class NewDeck extends Component {
         this.setState({text: ''})
         this.props.dispatch(addDeck(deck))
         this.props.navigation.navigate('Decks')
+        this.props.navigation.navigate('Deck', {deckKey: text, title: text})
     })
   }
 
