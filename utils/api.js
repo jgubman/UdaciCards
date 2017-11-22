@@ -1,6 +1,7 @@
 import { AsyncStorage } from 'react-native'
 
 export const DECK_STORAGE_KEY = 'UdaciCards:decks'
+export const DECK_QUIZ_DATE = 'UdaciCards:quizDate'
 
 
 const dummyData = {
@@ -31,8 +32,8 @@ const dummyData = {
 export function getDecks() {
   return AsyncStorage.getItem(DECK_STORAGE_KEY)
     .then((results) => {
-      //return dummyData
-      return results === null ? dummyData : JSON.parse(results)
+      return JSON.parse(results)
+      //return results === null ? dummyData : JSON.parse(results)
     })
 }
 
@@ -53,4 +54,15 @@ export function addCardToDeck(entry, key) {
       decks[key].questions.push(entry)
       AsyncStorage.setItem(DECK_STORAGE_KEY, JSON.stringify(decks))
     })
+}
+
+export function getLastQuizDate(date) {
+  return AsyncStorage.getItem(DECK_QUIZ_DATE)
+    .then((results) => (JSON.parse(results)))
+}
+
+export function setQuizDate() {
+  const now = new Date().getTime()
+  AsyncStorage.setItem(DECK_QUIZ_DATE, JSON.stringify(now))
+  return now
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Navigator } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks } from '../utils/api'
-import { receiveDecks, addDeck, quizStart } from '../actions'
+import { receiveDecks, addDeck, quizStart, resetQuiz } from '../actions'
 import { AppLoading} from 'expo'
 import Card from './Card'
 import { black, white, lightGrey } from '../utils/colors'
@@ -30,7 +30,10 @@ class Deck extends Component {
           <Text style={[styles.buttonTxt, styles.whiteBtnTxt]}>Add Card</Text>
         </TouchableOpacity>
         {questions.length > 0 && (
-          <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Quiz', {deck: deckKey}) }>
+          <TouchableOpacity style={styles.button} onPress={() => {
+            this.props.dispatch(resetQuiz())
+            this.props.navigation.navigate('Quiz', {deck: deckKey})
+          }}>
             <Text style={styles.buttonTxt}>Start Quiz</Text>
           </TouchableOpacity>
         )}
