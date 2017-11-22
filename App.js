@@ -11,6 +11,7 @@ import NewCard from './components/NewCard'
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 import { purple, white } from './utils/colors'
+import { setLocalNotification } from './utils/api'
 
 const Tabs = TabNavigator({
   Decks: {
@@ -80,6 +81,10 @@ const MainNavigator = StackNavigator({
 })
 
 export default class App extends React.Component {
+  componentDidMount () {
+    setLocalNotification()
+  }
+
   render() {
     return (
       <Provider store={createStore(rootReducer)}>

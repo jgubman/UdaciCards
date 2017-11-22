@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { RECEIVE_DECKS, ADD_QUESTION, ADD_DECK, ANSWER_QUESTION, QUIZ_START, RESET_QUIZ, LAST_QUIZED } from '../actions'
+import { RECEIVE_DECKS, ADD_QUESTION, ADD_DECK, ANSWER_QUESTION, QUIZ_START, RESET_QUIZ } from '../actions'
 
 function decks (state = {}, action) {
   switch (action.type) {
@@ -46,16 +46,5 @@ function answers (state = initialAnswerState, action) {
   }
 }
 
-function lastQuized (state = {date: null}, action) {
-  switch (action.type) {
-    case LAST_QUIZED :
-      return {
-        ...state, date: action.date
-      }
-    default :
-      return state
-  }
-}
-
-const rootReducer = combineReducers({ decks, answers, lastQuized });
+const rootReducer = combineReducers({ decks, answers });
 export default rootReducer;

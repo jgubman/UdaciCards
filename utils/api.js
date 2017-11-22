@@ -1,7 +1,8 @@
 import { AsyncStorage } from 'react-native'
+import { Notifications, Permissions } from 'expo';
 
 export const DECK_STORAGE_KEY = 'UdaciCards:decks'
-export const DECK_QUIZ_DATE = 'UdaciCards:quizDate'
+export const DECK_QUIZ_NOTIF = 'UdaciCards:quizNotif'
 
 
 const dummyData = {
@@ -56,13 +57,50 @@ export function addCardToDeck(entry, key) {
     })
 }
 
-export function getLastQuizDate(date) {
-  return AsyncStorage.getItem(DECK_QUIZ_DATE)
-    .then((results) => (JSON.parse(results)))
+export function clearLocalNotification () {
+  return AsyncStorage.removeItem(DECK_QUIZ_NOTIF)
+    .then(Notifications.cancelAllScheduledNotificationsAsync)
 }
 
-export function setQuizDate() {
-  const now = new Date().getTime()
-  AsyncStorage.setItem(DECK_QUIZ_DATE, JSON.stringify(now))
-  return now
+function createNotification () {
+  return {
+    title: 'Log your stats!',
+    body: "👋 don't forget to take your test for today!",
+    ios: {
+      sound: true,
+    },
+    android: {
+      sound: true,
+      priority: 'high',
+      sticky: false,
+      vibrate: true,
+    }
+  }
+}
+
+export function setLocalNotification () {
+  AsyncStorage.getItem(DECK_QUIZ_NOTIF)
+    .then(JSON.parse)
+    .then((data) => {
+      if (data === null) {
+        Permissions.askAsync(Permissions.NOTIFICATIONS)
+          .then(({ status }) => {
+            if (status === 'granted') {
+              Notifications.cancelAllScheduledNotificationsAsync()
+
+              let tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1)
+
+              Notifications.scheduleLocalNotificationAsync(
+                createNotification(), {
+                  time: tomorrow,
+                  repeat: 'day',
+                }
+              )
+
+              AsyncStorage.setItem(DECK_QUIZ_NOTIF, JSON.stringify(true))
+            }
+          })
+      }
+    })
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { View, FlatList, Text, StyleSheet, Platform, TouchableOpacity, TouchableHighlight, TextInput, BackHandler } from 'react-native'
 import { connect } from 'react-redux'
-import { getDecks, getLastQuizDate } from '../utils/api'
-import { receiveDecks, addDeck, resetQuiz, lastQuized } from '../actions'
+import { getDecks } from '../utils/api'
+import { receiveDecks, addDeck, resetQuiz } from '../actions'
 import { AppLoading} from 'expo'
 import { black, white, red, lightGrey } from '../utils/colors'
 
@@ -16,16 +16,13 @@ class DeckList extends Component {
 
   componentWillMount () {
     const { dispatch } = this.props
-    getLastQuizDate()
-      .then((date) => dispatch(lastQuized(date)))
     getDecks()
       .then((decks) => dispatch(receiveDecks(decks)))
   }
 
   render() {
-    const { decks, lastQuized } = this.props
+    const { decks } = this.props
     const { showInput, input } = this.state
-    const oneDayInMS = 1000*60*60*24
 
     if (decks === null) {
       return <AppLoading />
@@ -43,10 +40,6 @@ class DeckList extends Component {
 
     return (
       <View style={styles.container}>
-        {((lastQuized === null) || ((new Date().getTime() - lastQuized) > oneDayInMS)) && (
-          <Text style={styles.warning}>Don't forget to take a quiz!</Text>
-        )}
-
         <FlatList
           data={Object.keys(decks)}
           keyExtractor={this._keyExtractor}
@@ -130,8 +123,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps (state) {
   return {
-    decks: state.decks,
-    lastQuized: state.lastQuized.date
+    decks: state.decks
   }
 }
 

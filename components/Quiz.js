@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, Navigator } from 'react-native'
 import { connect } from 'react-redux'
-import { fetchDecks, setQuizDate } from '../utils/api'
+import { fetchDecks, clearLocalNotification, setLocalNotification } from '../utils/api'
 import { lastQuized } from '../actions'
 import Card from './Card'
 import { green } from '../utils/colors'
@@ -10,8 +10,7 @@ import { green } from '../utils/colors'
 class Quiz extends Component {
 
   componentWillMount () {
-    const date = setQuizDate()
-    this.props.dispatch(lastQuized(date))
+    clearLocalNotification().then(setLocalNotification)
   }
 
   render() {

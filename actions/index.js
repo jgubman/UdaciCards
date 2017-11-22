@@ -4,7 +4,6 @@ export const ADD_DECK = 'ADD_DECK'
 export const ANSWER_QUESTION = 'ANSWER_QUESTION'
 export const QUIZ_START = 'QUIZ_START'
 export const RESET_QUIZ = 'RESET_QUIZ'
-export const LAST_QUIZED = 'LAST_QUIZED'
 
 
 export function receiveDecks (decks) {
@@ -44,12 +43,5 @@ export function quizStart () {
 export function resetQuiz () {
   return {
     type: RESET_QUIZ
-  }
-}
-
-export function lastQuized (date) {
-  return {
-    type: 'LAST_QUIZED',
-    date,
   }
 }
