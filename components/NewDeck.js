@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, FlatList, Text, StyleSheet, Platform, TouchableHighlight, TextInput } from 'react-native'
+import { KeyboardAvoidingView, View, FlatList, Text, StyleSheet, Platform, TouchableHighlight, TextInput } from 'react-native'
 import { addDeck } from '../actions'
 import { saveDeckTitle } from '../utils/api'
 import { connect } from 'react-redux'
@@ -17,7 +17,7 @@ class NewDeck extends Component {
   render() {
     const { text } = this.state
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <Text style={styles.heading}>What is the title of your new deck?</Text>
         <TextInput
           value={text}
@@ -29,7 +29,7 @@ class NewDeck extends Component {
         <TouchableHighlight style={styles.button} onPress={() => this._handleTextChange()}>
           <Text style={styles.buttonTxt}>Submit</Text>
         </TouchableHighlight>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 

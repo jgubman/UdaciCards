@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableHighlight } from 'react-native';
+import { KeyboardAvoidingView, View, Text, TextInput, StyleSheet, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux'
 import { addCardToDeck } from '../utils/api'
 import { addQuestion } from '../actions'
@@ -38,7 +38,7 @@ class NewCard extends Component {
     const { questionText, answerText } = this.state
 
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView style={styles.container}>
         <TextInput
           value={questionText}
           style={styles.input}
@@ -54,7 +54,7 @@ class NewCard extends Component {
         <TouchableHighlight style={styles.button} onPress={() => this._handleTextChange()}>
           <Text style={styles.buttonTxt}>Submit</Text>
         </TouchableHighlight>
-      </View>
+      </KeyboardAvoidingView>
     )
   }
 }
