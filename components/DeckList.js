@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { getDecks } from '../utils/api'
 import { receiveDecks, addDeck, resetQuiz } from '../actions'
 import { AppLoading} from 'expo'
+import { black, white, lightGrey } from '../utils/colors'
 
 class DeckList extends Component {
 
@@ -34,7 +35,7 @@ class DeckList extends Component {
           keyExtractor={this._keyExtractor}
           extraData={this.state}
           renderItem={this._renderItem}
-          ListHeaderComponent={this._renderHeader}
+          containerStyle={{borderBottomWidth: 2}}
           contentContainerStyle={styles.centeredCell} />
       </View>
     )
@@ -48,32 +49,22 @@ class DeckList extends Component {
         this.props.dispatch(resetQuiz())
         navigate('Deck', {deckKey: item, title: title, questions: questions})
       } }>
-        <Text>{title}: {questions.length} Cards</Text>
+        <View>
+          <Text style={styles.deckTitle}>{title}</Text>
+          <Text style={styles.cardCount}>{questions.length} cards</Text>
+        </View>
       </TouchableHighlight>
     )
 
   }
-
-  _renderHeader = () => (
-    <View>
-      <Text style={styles.header}>Decks</Text>
-    </View>
-  )
-
-  _renderFooter = () => (
-    <View style={{alignItems: 'center'}}>
-      <TouchableOpacity onPress={this._addNewDeck} style={styles.footer}>
-        <Text>Add New Deck</Text>
-      </TouchableOpacity>
-    </View>
-  )
 
 }
 
 const styles = StyleSheet.create({
   container: {
    flex: 1,
-   paddingTop: 22
+   paddingTop: 22,
+   backgroundColor: white
   },
   header: {
     fontSize: 22,
@@ -94,14 +85,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 10,
-    backgroundColor: '#888',
     padding: 20,
-    margin: 20
+    margin: 20,
+    borderBottomWidth: 1
   },
   centeredCell: {
     justifyContent: 'space-between',
     alignItems: 'stretch',
+  },
+  deckTitle: {
+    textAlign: 'center',
+    color: black,
+    fontWeight: 'bold',
+    fontSize: 32
+  },
+  cardCount: {
+    textAlign: 'center',
+    fontSize: 24,
+    color: lightGrey
   }
+
 })
 
 function mapStateToProps (decks) {

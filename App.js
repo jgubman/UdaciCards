@@ -67,7 +67,8 @@ const MainNavigator = StackNavigator({
       headerTintColor: white,
       headerStyle: {
         backgroundColor: purple,
-      }
+      },
+      title: 'Add Card'
     })
   },
   Quiz: {

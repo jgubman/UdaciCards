@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { View, Text, TouchableHighlight } from 'react-native'
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import { answerQuestion } from '../actions'
+import { red, green, white } from '../utils/colors'
 
 class AnswerButtons extends Component {
 
@@ -10,16 +11,36 @@ class AnswerButtons extends Component {
 
     return (
       <View>
-        <TouchableHighlight onPress={() => dispatch(answerQuestion(true))}>
-          <Text>Correct</Text>
+        <TouchableHighlight style={styles.button} onPress={() => dispatch(answerQuestion(true))}>
+          <Text style={styles.buttonTxt}>Correct</Text>
         </TouchableHighlight>
-        <TouchableHighlight onPress={() => dispatch(answerQuestion(false))}>
-          <Text>Incorrect</Text>
+        <TouchableHighlight style={[styles.button, styles.redBtn]} onPress={() => dispatch(answerQuestion(false))}>
+          <Text style={styles.buttonTxt}>Incorrect</Text>
         </TouchableHighlight>
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  button: {
+    padding: 5,
+    margin: 5,
+    borderRadius: 5,
+    backgroundColor: green,
+  },
+  redBtn: {
+    backgroundColor: red
+  },
+  buttonTxt: {
+    padding: 10,
+    paddingLeft: 40,
+    paddingRight: 40,
+    textAlign: 'center',
+    color: white,
+    fontSize: 32,
+  },
+})
 
 
 export default connect()(AnswerButtons)
