@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Navigator } from 'react-native'
+import { View, Text, StyleSheet, TouchableHighlight, TextInput, Navigator } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchDecks, clearLocalNotification, setLocalNotification } from '../utils/api'
-import { lastQuized } from '../actions'
+import { lastQuized, resetQuiz } from '../actions'
 import Card from './Card'
-import { green } from '../utils/colors'
+import { white, black, green } from '../utils/colors'
 
 
 class Quiz extends Component {
@@ -26,13 +26,18 @@ class Quiz extends Component {
 
     if (questions.length > 0 && currentQuestionIdx == questions.length) {
       const { correct, incorrect } = this.props
-      const percentCorrect = (correct / (correct + incorrect)) * 100
+      const percentCorrect = Math.round((correct / (correct + incorrect)) * 100)
 
       return (
         <View style={styles.container}>
           <Text style={styles.summary}>
             Done! You got {percentCorrect}%  correct ({correct} out of {correct + incorrect})
           </Text>
+          <TouchableHighlight style={styles.button} onPress={() => {
+            dispatch(resetQuiz())
+          }}>
+            <Text style={styles.buttonTxt}>Restart Quiz</Text>
+          </TouchableHighlight>
         </View>
       )
     }
@@ -51,7 +56,8 @@ const styles = StyleSheet.create({
    flex: 1,
    paddingLeft: 10,
    paddingRight: 10,
-   justifyContent: 'center'
+   justifyContent: 'center',
+   alignItems: 'center'
   },
   count: {
     fontSize: 14,
@@ -63,7 +69,23 @@ const styles = StyleSheet.create({
     color: green,
     textAlign: 'center',
     justifyContent: 'center'
-  }
+  },
+  button: {
+    width: 250,
+    padding: 5,
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: black,
+    backgroundColor: black,
+  },
+  buttonTxt: {
+    width: 240,
+    color: white,
+    fontSize: 32,
+    textAlign: 'center'
+  },
 })
 
 
