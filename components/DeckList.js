@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, FlatList, Text, StyleSheet, Platform, TouchableOpacity, TouchableHighlight, TextInput, BackHandler } from 'react-native'
 import { connect } from 'react-redux'
 import { getDecks } from '../utils/api'
-import { receiveDecks, addDeck, resetQuiz } from '../actions'
+import { receiveDecks, resetQuiz } from '../actions'
 import { AppLoading} from 'expo'
 import { black, white, red, lightGrey } from '../utils/colors'
 
@@ -121,10 +121,8 @@ const styles = StyleSheet.create({
 
 })
 
-function mapStateToProps (state) {
-  return {
-    decks: state.decks
-  }
+function mapStateToProps ({ decks }) {
+  return { decks }
 }
 
 export default connect(mapStateToProps)(DeckList)
